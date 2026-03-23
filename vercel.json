@@ -1,0 +1,5 @@
+{
+  "version": 2,
+  "name": "mary-gendron",
+  "builds": [{ "src": "*.html", "use": "@vercel/static" }]
+}
