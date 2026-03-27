@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lead to Empower — Manager Training</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #1a3a2a;
+    --forest-light: #2d5a42;
+    --gold: #c9a84c;
+    --gold-light: #e8c96d;
+    --cream: #f5f0e8;
+    --cream-dark: #ede5d5;
+    --charcoal: #2a2a2a;
+    --muted: #7a7a6a;
+    --white: #ffffff;
+    --trust: #2d5a42;
+    --commitment: #8b3a3a;
+    --adaptability: #3a5a7a;
+    --collaboration: #6a3a7a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* SPLASH SCREEN */
+  #splash {
+    position: fixed; inset: 0;
+    background: var(--forest);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 1000;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  #splash.hidden { opacity: 0; pointer-events: none; transform: translateY(-20px); }
+
+  .splash-label {
+    font-family: 'DM Mono', monospace;
+    color: var(--gold);
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.3s forwards;
+  }
+  .splash-title {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    line-height: 1.05;
+    text-align: center;
+    max-width: 700px;
+    padding: 0 2rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.5s forwards;
+  }
+  .splash-title em { color: var(--gold); font-style: italic; }
+  .splash-sub {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.6);
+    margin-top: 1.2rem;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.7s forwards;
+  }
+  .splash-values {
+    display: flex; gap: 1.5rem; margin-top: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.9s forwards;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .splash-value-pill {
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold-light);
+    padding: 0.3rem 0.9rem;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+  }
+  .splash-btn {
+    margin-top: 3rem;
+    background: var(--gold);
+    color: var(--forest);
+    border: none; cursor: pointer;
+    padding: 0.9rem 2.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 100px;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 1.1s forwards;
+  }
+  .splash-btn:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.3); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* MAIN LAYOUT */
+  #app { display: none; min-height: 100vh; }
+  #app.visible { display: block; }
+
+  /* TOP NAV */
+  .topnav {
+    background: var(--forest);
+    padding: 0 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+  }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    font-size: 1.1rem;
+    padding: 1rem 0;
+    font-style: italic;
+  }
+  .nav-progress-wrap {
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .nav-progress-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .nav-dots { display: flex; gap: 6px; }
+  .nav-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .nav-dot.active { background: var(--gold); transform: scale(1.3); }
+  .nav-dot.done { background: rgba(201,168,76,0.5); }
+
+  /* SIDEBAR + CONTENT LAYOUT */
+  .layout { display: flex; min-height: calc(100vh - 56px); }
+
+  .sidebar {
+    width: 280px;
+    background: var(--forest);
+    flex-shrink: 0;
+    padding: 2rem 0;
+    display: flex; flex-direction: column;
+    position: sticky; top: 56px;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+  }
+
+  .sidebar-section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    padding: 0 1.5rem;
+    margin-bottom: 0.75rem;
+    margin-top: 1.5rem;
+  }
+  .sidebar-section-label:first-child { margin-top: 0; }
+
+  .sidebar-item {
+    padding: 0.65rem 1.5rem;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 0.75rem;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+    position: relative;
+  }
+  .sidebar-item:hover { background: rgba(255,255,255,0.05); }
+  .sidebar-item.active { background: rgba(201,168,76,0.12); border-left-color: var(--gold); }
+  .sidebar-item .si-icon {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  .sidebar-item .si-text { font-size: 0.82rem; color: rgba(255,255,255,0.7); font-weight: 400; line-height: 1.3; }
+  .sidebar-item.active .si-text { color: var(--gold-light); font-weight: 500; }
+  .sidebar-item .si-check {
+    margin-left: auto;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.6rem;
+    flex-shrink: 0;
+  }
+  .sidebar-item.done .si-check { background: var(--gold); color: var(--forest); }
+
+  /* CONTENT AREA */
+  .content { flex: 1; padding: 3rem 4rem; max-width: 860px; }
+
+  .module { display: none; animation: slideIn 0.4s ease; }
+  .module.active { display: block; }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* MODULE HEADERS */
+  .module-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+  .module-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .module-title em { font-style: italic; }
+  .module-desc {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 600px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold) 0%, transparent 60%);
+    margin-bottom: 2.5rem;
+    opacity: 0.3;
+  }
+
+  /* CARDS */
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 2rem; }
+  .card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    transition: all 0.2s;
+  }
+  .card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .card-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+  .card-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.4rem; color: var(--charcoal); }
+  .card-body { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+  /* VALUE BADGE */
+  .value-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.3rem 0.85rem;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  /* CONTRAST BOX */
+  .contrast-box {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border-radius: 12px; overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.08);
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  }
+  .contrast-col { padding: 1.5rem; }
+  .contrast-col.bad { background: #fdf0f0; }
+  .contrast-col.good { background: #f0faf4; }
+  .contrast-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+  .contrast-col.bad .contrast-label { color: #c0392b; }
+  .contrast-col.good .contrast-label { color: #27ae60; }
+  .contrast-item {
+    display: flex; align-items: flex-start; gap: 0.5rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--charcoal);
+  }
+  .contrast-item .ci-icon { flex-shrink: 0; margin-top: 2px; }
+
+  /* SCENARIO */
+  .scenario-box {
+    background: var(--forest);
+    color: var(--white);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .scenario-box::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 10rem;
+    color: rgba(201,168,76,0.08);
+    position: absolute;
+    top: -2rem; left: 1rem;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .scenario-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .scenario-text { font-size: 0.95rem; line-height: 1.7; color: rgba(255,255,255,0.85); margin-bottom: 1.5rem; }
+  .scenario-response { font-size: 0.9rem; line-height: 1.7; }
+  .scenario-response strong { color: var(--gold); }
+
+  /* REFLECTION */
+  .reflection-box {
+    background: linear-gradient(135deg, #f9f5ed, #f0ebe0);
+    border-radius: 12px;
+    padding: 1.75rem;
+    margin-bottom: 2rem;
+    border-left: 4px solid var(--gold);
+  }
+  .reflection-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .reflection-q {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    margin-bottom: 0.7rem;
+    font-size: 0.9rem;
+    color: var(--charcoal);
+    line-height: 1.5;
+  }
+  .reflection-q .rq-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-weight: 600;
+  }
+
+  /* PRINCIPLE LIST */
+  .principle-list { margin-bottom: 2rem; }
+  .principle-item {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1.1rem 1.25rem;
+    background: var(--white);
+    border-radius: 10px;
+    margin-bottom: 0.6rem;
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.2s;
+  }
+  .principle-item:hover { border-color: rgba(201,168,76,0.3); box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .principle-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+    line-height: 1;
+    flex-shrink: 0;
+    font-style: italic;
+  }
+  .principle-content .pc-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.25rem; }
+  .principle-content .pc-body { font-size: 0.83rem; color: var(--muted); line-height: 1.5; }
+
+  /* HIGHLIGHT STAT */
+  .stat-row { display: flex; gap: 1rem; margin-bottom: 2rem; }
+  .stat-card {
+    flex: 1;
+    background: var(--forest);
+    color: var(--white);
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--gold);
+    font-style: italic;
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.35rem;
+  }
+  .stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.6); line-height: 1.4; }
+
+  /* CHECKLIST */
+  .checklist-box {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .checklist-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; color: var(--charcoal); }
+  .check-item {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .check-item:last-child { border-bottom: none; }
+  .check-item:hover { opacity: 0.8; }
+  .check-box {
+    width: 18px; height: 18px;
+    border: 2px solid rgba(0,0,0,0.15);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.6rem;
+    transition: all 0.2s;
+  }
+  .check-item.checked .check-box { background: var(--gold); border-color: var(--gold); color: var(--white); }
+  .check-item.checked .check-label { text-decoration: line-through; color: var(--muted); }
+  .check-label { font-size: 0.85rem; line-height: 1.5; color: var(--charcoal); }
+
+  /* QUOTE PULL */
+  .pull-quote {
+    border-top: 3px solid var(--gold);
+    border-bottom: 3px solid var(--gold);
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    line-height: 1.5;
+    color: var(--charcoal);
+    font-style: italic;
+  }
+  .pull-quote cite {
+    display: block;
+    margin-top: 0.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    font-style: normal;
+  }
+
+  /* VALUE COLOR THEMING */
+  .theme-trust { --accent: var(--trust); }
+  .theme-commitment { --accent: var(--commitment); }
+  .theme-adaptability { --accent: var(--adaptability); }
+  .theme-collaboration { --accent: var(--collaboration); }
+
+  /* NAV FOOTER */
+  .mod-nav {
+    display: flex; gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+  .mod-nav-btn {
+    padding: 0.75rem 1.75rem;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    letter-spacing: 0.03em;
+  }
+  .btn-prev { background: rgba(0,0,0,0.06); color: var(--charcoal); }
+  .btn-prev:hover { background: rgba(0,0,0,0.1); }
+  .btn-next { background: var(--forest); color: var(--white); }
+  .btn-next:hover { background: var(--forest-light); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(26,58,42,0.2); }
+  .btn-next.gold { background: var(--gold); color: var(--forest); }
+  .btn-next.gold:hover { background: var(--gold-light); }
+  .btn-spacer { flex: 1; }
+
+  /* WELCOME MODULE */
+  .welcome-hero {
+    background: var(--forest);
+    border-radius: 16px;
+    padding: 3rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .welcome-hero::after {
+    content: '';
+    position: absolute;
+    top: -40%; right: -10%;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    border: 60px solid rgba(201,168,76,0.08);
+    pointer-events: none;
+  }
+  .welcome-hero h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    font-size: 1.8rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+  .welcome-hero h2 em { color: var(--gold); font-style: italic; }
+  .welcome-hero p { color: rgba(255,255,255,0.7); font-size: 0.95rem; line-height: 1.7; max-width: 480px; font-weight: 300; }
+
+  .values-overview { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+  .value-card {
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+  .value-card::before {
+    content: attr(data-letter);
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-style: italic;
+    font-weight: 900;
+    position: absolute;
+    bottom: -1rem; right: 0.5rem;
+    opacity: 0.12;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .value-card.trust { background: var(--trust); }
+  .value-card.commitment { background: var(--commitment); }
+  .value-card.adaptability { background: var(--adaptability); }
+  .value-card.collaboration { background: var(--collaboration); }
+  .vc-title { font-weight: 700; font-size: 1rem; margin-bottom: 0.3rem; }
+  .vc-subs { font-size: 0.75rem; opacity: 0.75; line-height: 1.6; }
+
+  /* COMPLETE BANNER */
+  .complete-banner {
+    background: linear-gradient(135deg, var(--forest), var(--forest-light));
+    color: var(--white);
+    border-radius: 16px;
+    padding: 3rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .complete-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .complete-banner h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+    font-style: italic;
+  }
+  .complete-banner h2 em { color: var(--gold); }
+  .complete-banner p { color: rgba(255,255,255,0.7); max-width: 500px; margin: 0 auto; line-height: 1.7; font-size: 0.95rem; }
+  .pledge-items { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 2rem; }
+  .pledge-item {
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 1rem;
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.8);
+    display: flex; align-items: flex-start; gap: 0.6rem;
+    text-align: left; line-height: 1.5;
+  }
+  .pledge-item .pi-icon { font-size: 1rem; flex-shrink: 0; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .sidebar { width: 220px; }
+    .content { padding: 2rem; }
+    .card-grid { grid-template-columns: 1fr; }
+    .values-overview { grid-template-columns: 1fr; }
+    .contrast-box { grid-template-columns: 1fr; }
+    .pledge-items { grid-template-columns: 1fr; }
+    .stat-row { flex-wrap: wrap; }
+  }
+  @media (max-width: 650px) {
+    .sidebar { display: none; }
+    .content { padding: 1.5rem; }
+  }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.7rem;
+    border-radius: 100px;
+    background: rgba(0,0,0,0.06);
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .section-header { font-weight: 600; font-size: 1rem; margin-bottom: 1rem; color: var(--charcoal); margin-top: 2rem; }
+  .section-header:first-of-type { margin-top: 0; }
+
+  .big-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-style: italic;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <p class="splash-label">Manager Development Program</p>
+  <h1 class="splash-title">Lead to <em>Empower,</em> Not Control</h1>
+  <p class="splash-sub">A training experience for new and emerging managers</p>
+  <div class="splash-values">
+    <span class="splash-value-pill">Trust</span>
+    <span class="splash-value-pill">Commitment</span>
+    <span class="splash-value-pill">Adaptability</span>
+    <span class="splash-value-pill">Collaboration</span>
+  </div>
+  <button class="splash-btn" onclick="startTraining()">Begin Training →</button>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <!-- TOP NAV -->
+  <nav class="topnav">
+    <span class="nav-brand">Lead to Empower</span>
+    <div class="nav-progress-wrap">
+      <span class="nav-progress-label">Progress</span>
+      <div class="nav-dots" id="navDots"></div>
+    </div>
+  </nav>
+
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <!-- CONTENT -->
+    <main class="content" id="contentArea"></main>
+  </div>
+</div>
+
+<script>
+const modules = [
+  { id: 'welcome', icon: '🌱', label: 'Welcome', group: 'Introduction' },
+  { id: 'mindset', icon: '🧠', label: 'The Empowerment Mindset', group: 'Foundation' },
+  { id: 'trust', icon: '🤝', label: 'Trust — Respect & Transparency', group: 'Core Values' },
+  { id: 'commitment', icon: '🎯', label: 'Commitment — Discipline & Results', group: 'Core Values' },
+  { id: 'adaptability', icon: '🌊', label: 'Adaptability — Growth & Resilience', group: 'Core Values' },
+  { id: 'collaboration', icon: '🌟', label: 'Collaboration — Recognition & Gratitude', group: 'Core Values' },
+  { id: 'tools', icon: '🛠️', label: 'Manager Toolbox', group: 'Practice' },
+  { id: 'complete', icon: '🏅', label: 'Manager Pledge', group: 'Complete' },
+];
+
+let currentIdx = 0;
+const done = new Set();
+
+const moduleContent = {
+  welcome: `
+    <div class="module-eyebrow" style="color:var(--gold)">Module 0 · Welcome</div>
+    <h1 class="module-title">You're a Manager Now.<br><em>Here's What That Really Means.</em></h1>
+    <p class="module-desc">This isn't about having authority over people — it's about unlocking what people are already capable of. Welcome to a different kind of leadership.</p>
+    <div class="divider"></div>
+    <div class="welcome-hero">
+      <h2>From <em>Doer</em> to Enabler</h2>
+      <p>The skills that made you great as an individual contributor — speed, precision, doing things yourself — are not the same skills that will make you a great manager. Your new job is to make your team capable of doing great things without you doing it for them.</p>
+    </div>
+    <p class="section-header">Our Four Core Values & What They Mean for Managers</p>
+    <div class="values-overview">
+      <div class="value-card trust" data-letter="T">
+        <div class="vc-title">Trust</div>
+        <div class="vc-subs">Respect · Integrity · Transparency</div>
+      </div>
+      <div class="value-card commitment" data-letter="C">
+        <div class="vc-title">Commitment</div>
+        <div class="vc-subs">Service · Discipline · Results-Oriented</div>
+      </div>
+      <div class="value-card adaptability" data-letter="A">
+        <div class="vc-title">Adaptability</div>
+        <div class="vc-subs">Growth · Resiliency</div>
+      </div>
+      <div class="value-card collaboration" data-letter="C">
+        <div class="vc-title">Collaboration</div>
+        <div class="vc-subs">Recognition · Appreciation · Celebration · Gratitude</div>
+      </div>
+    </div>
+    <div class="reflection-box">
+      <div class="reflection-label">🔍 Before You Begin — Reflect</div>
+      <div class="reflection-q"><span class="rq-num">01</span>Think of the best manager you ever had. What made them stand out?</div>
+      <div class="reflection-q"><span class="rq-num">02</span>What's your biggest fear about being a manager?</div>
+      <div class="reflection-q"><span class="rq-num">03</span>What kind of manager do you want your team to say you were, 2 years from now?</div>
+    </div>
+    <div class="mod-nav">
+      <div class="btn-spacer"></div>
+      <button class="mod-nav-btn btn-next" onclick="goTo(1)">Start: The Empowerment Mindset →</button>
+    </div>
+  `,
+
+  mindset: `
+    <div class="module-eyebrow" style="color:var(--gold)">Module 1 · Foundation</div>
+    <h1 class="module-title">The <em>Empowerment</em> Mindset</h1>
+    <p class="module-desc">Micromanagement feels safe. It isn't. Empowerment feels risky. It's actually the only path to a high-performing team.</p>
+    <div class="divider"></div>
+
+    <div class="stat-row">
+      <div class="stat-card"><span class="stat-num">79%</span><span class="stat-label">of employees who quit say a lack of appreciation was a key reason</span></div>
+      <div class="stat-card"><span class="stat-num">3×</span><span class="stat-label">more productive — employees under empowering managers vs. micromanaged ones</span></div>
+      <div class="stat-card"><span class="stat-num">69%</span><span class="stat-label">of employees say they'd work harder if they felt better recognized</span></div>
+    </div>
+
+    <p class="section-header">Micromanaging vs. Empowering — The Real Difference</p>
+    <div class="contrast-box">
+      <div class="contrast-col bad">
+        <div class="contrast-label">❌ Micromanaging Looks Like</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>"Let me check that before it goes out."</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Requiring approval for every small decision</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Frequent check-ins driven by manager anxiety</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Telling people HOW to do every step</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Correcting style, not just outcome</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Being the bottleneck for everything</div>
+      </div>
+      <div class="contrast-col good">
+        <div class="contrast-label">✅ Empowering Looks Like</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>"You have the authority to decide this."</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Defining what success looks like, then stepping back</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Scheduled check-ins driven by team needs</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Defining the outcome, letting them own the HOW</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Coaching toward better judgment over time</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Being available, not constantly present</div>
+      </div>
+    </div>
+
+    <p class="section-header">Why New Managers Default to Micromanaging</p>
+    <div class="principle-list">
+      <div class="principle-item">
+        <span class="principle-num">1</span>
+        <div class="principle-content">
+          <div class="pc-title">It feels like accountability</div>
+          <div class="pc-body">When you're new, hovering feels responsible. It's not — it signals you don't trust your team, and it trains them to stop thinking independently.</div>
+        </div>
+      </div>
+      <div class="principle-item">
+        <span class="principle-num">2</span>
+        <div class="principle-content">
+          <div class="pc-title">Letting go is uncomfortable</div>
+          <div class="pc-body">You were good at the work. Now someone else is doing it, maybe differently. That discomfort is part of growth — for you AND them.</div>
+        </div>
+      </div>
+      <div class="principle-item">
+        <span class="principle-num">3</span>
+        <div class="principle-content">
+          <div class="pc-title">Fear of failure</div>
+          <div class="pc-body">You're responsible for outcomes now. But controlling everything isn't the answer — building a team that knows what they're doing is.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      <p>"The best managers don't tell people what to do. They make it clear what winning looks like — then get out of the way."</p>
+      <cite>— Empowerment-Based Leadership</cite>
+    </div>
+
+    <div class="reflection-box">
+      <div class="reflection-label">🔍 Reflection</div>
+      <div class="reflection-q"><span class="rq-num">01</span>In what areas do you feel the urge to "stay in control"? What drives that feeling?</div>
+      <div class="reflection-q"><span class="rq-num">02</span>What would you need to believe about your team in order to let go more?</div>
+    </div>
+    <div class="mod-nav">
+      <button class="mod-nav-btn btn-prev" onclick="goTo(0)">← Back</button>
+      <div class="btn-spacer"></div>
+      <button class="mod-nav-btn btn-next" onclick="goTo(2)">Next: Trust →</button>
+    </div>
+  `,
+
+  trust: `
+    <div class="value-badge" style="background:#e8f5ee;color:var(--trust)">🤝 Core Value — Trust</div>
+    <div class="module-eyebrow" style="color:var(--trust)">Module 2 · Respect · Integrity · Transparency</div>
+    <h1 class="module-title">Trust Is the <em>Foundation</em></h1>
+    <p class="module-desc">You can't empower people you don't trust. And your team can't perform for a manager they don't trust. Trust goes both directions — and it has to be built on purpose.</p>
+    <div class="divider"></div>
+
+    <p class="section-header">The Three Pillars of Trust in Management</p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🫱</div>
+        <div class="card-title">Respect</div>
+        <div class="card-body">Treat your team as whole people, not just workers. Honor their time, their ideas, and their perspective — even when you disagree. Respect is shown in small moments, every day.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">💎</div>
+        <div class="card-title">Integrity</div>
+        <div class="card-body">Do what you say. Say what you mean. When you make a commitment, keep it. When you're wrong, own it. Integrity means your team always knows where they stand with you.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🪟</div>
+        <div class="card-title">Transparency</div>
+        <div class="card-body">Share information your team needs to do their jobs well. Don't create anxiety through silence or ambiguity. People fill information gaps with fear — give them the truth instead.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🛡️</div>
+        <div class="card-title">Psychological Safety</div>
+        <div class="card-body">Make it safe to speak up, ask questions, make mistakes, and disagree. If your team is afraid to tell you bad news, you'll always be the last to know about problems.</div>
+      </div>
+    </div>
+
+    <p class="section-header">Real-World Scenario</p>
+    <div class="scenario-box">
+      <div class="scenario-label">📋 Scenario</div>
+      <div class="scenario-text">A team member comes to you and admits they made a mistake on a client report that's already been sent. They're nervous and apologetic.</div>
+      <div class="scenario-response">
+        <strong>Micromanager response:</strong> Expresses frustration, asks why they didn't double-check, wonders if they should handle this type of work going forward.<br><br>
+        <strong>Empowering response:</strong> "I appreciate you telling me right away — that takes courage. Let's focus on fixing this first. Once we've handled it, we can talk through what happened and what we can set up so it's less likely next time."
+      </div>
+    </div>
+
+    <p class="section-header">Trust-Building Behaviors — Daily Practice</p>
+    <div class="checklist-box">
+      <div class="checklist-title">Check the trust behaviors you're already doing — and commit to the rest:</div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-label">I tell my team WHY, not just WHAT</div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-label">I follow through on commitments I make to my team</div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-label">When I'm wrong, I say so clearly and without hedging</div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-label">I share company context my team needs to do their jobs well</div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-label">I don't punish people for raising problems or concerns</div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-label">I treat every person on my team with consistent respect</div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-label">I give credit generously and don't take credit for others' work</div></div>
+    </div>
+
+    <div class="reflection-box">
+      <div class="reflection-label">🔍 Reflection</div>
+      <div class="reflection-q"><span class="rq-num">01</span>What does your team currently think your management style is? How do you know?</div>
+      <div class="reflection-q"><span class="rq-num">02</span>Is there anyone on your team you have a harder time trusting? What's driving that?</div>
+    </div>
+    <div class="mod-nav">
+      <button class="mod-nav-btn btn-prev" onclick="goTo(1)">← Back</button>
+      <div class="btn-spacer"></div>
+      <button class="mod-nav-btn btn-next" onclick="goTo(3)">Next: Commitment →</button>
+    </div>
+  `,
+
+  commitment: `
+    <div class="value-badge" style="background:#fdf0f0;color:var(--commitment)">🎯 Core Value — Commitment</div>
+    <div class="module-eyebrow" style="color:var(--commitment)">Module 3 · Service · Discipline · Results-Oriented</div>
+    <h1 class="module-title">Commitment Without <em>Control</em></h1>
+    <p class="module-desc">High-performing teams are results-driven — not activity-driven. Your job is to create the conditions for results, not to oversee every step of how work gets done.</p>
+    <div class="divider"></div>
+
+    <p class="section-header">The Results-Over-Activity Shift</p>
+    <div class="contrast-box">
+      <div class="contrast-col bad">
+        <div class="contrast-label">❌ Activity-Focused Manager</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Monitors how many hours people work</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Requires constant status updates</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Cares if people are "at their desk"</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Tells people exactly how to do tasks</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Measures effort, not outcome</div>
+      </div>
+      <div class="contrast-col good">
+        <div class="contrast-label">✅ Results-Focused Manager</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Defines what "done well" looks like upfront</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Asks "what do you need from me?" not "what are you doing?"</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Cares about quality of output, not method</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Trusts people to find their best path</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Holds people accountable to outcomes</div>
+      </div>
+    </div>
+
+    <p class="section-header">Service Leadership: Your Team Is Your Customer</p>
+    <div class="principle-list">
+      <div class="principle-item">
+        <span class="principle-num">1</span>
+        <div class="principle-content">
+          <div class="pc-title">Remove their blockers</div>
+          <div class="pc-body">Your primary job is to clear the path. What's slowing your team down? Your job is to fix that — not to watch them work.</div>
+        </div>
+      </div>
+      <div class="principle-item">
+        <span class="principle-num">2</span>
+        <div class="principle-content">
+          <div class="pc-title">Set clear expectations up front</div>
+          <div class="pc-body">Ambiguity breeds anxiety. Before a project starts, define what success looks like. Who decides what? What's the deadline? What level of quality is needed?</div>
+        </div>
+      </div>
+      <div class="principle-item">
+        <span class="principle-num">3</span>
+        <div class="principle-content">
+          <div class="pc-title">Hold people accountable with compassion</div>
+          <div class="pc-body">Accountability isn't about punishment — it's about follow-through. When someone misses a commitment, address it directly, kindly, and quickly.</div>
+        </div>
+      </div>
+      <div class="principle-item">
+        <span class="principle-num">4</span>
+        <div class="principle-content">
+          <div class="pc-title">Discipline yourself first</div>
+          <div class="pc-body">Your team watches what you do, not what you say. If you want a team that's reliable and professional, you have to model that in every interaction.</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-header">Real-World Scenario</p>
+    <div class="scenario-box">
+      <div class="scenario-label">📋 Scenario</div>
+      <div class="scenario-text">A team member is consistently missing their weekly targets. You've noticed, but you haven't said anything yet because you don't want to seem harsh.</div>
+      <div class="scenario-response">
+        <strong>Avoidant response:</strong> Nothing gets said, the pattern continues, resentment builds, and other team members notice the lack of accountability.<br><br>
+        <strong>Empowering response:</strong> "Hey, I want to check in — I've noticed you've been running behind on targets the last few weeks. I'm not here to pile on, but I do want to understand what's going on and figure out if there's something I can do to help."
+      </div>
+    </div>
+
+    <div class="reflection-box">
+      <div class="reflection-label">🔍 Reflection</div>
+      <div class="reflection-q"><span class="rq-num">01</span>Are you measuring activity or results on your team right now? Which would your team say?</div>
+      <div class="reflection-q"><span class="rq-num">02</span>Is there a conversation you've been avoiding? What's the cost of not having it?</div>
+    </div>
+    <div class="mod-nav">
+      <button class="mod-nav-btn btn-prev" onclick="goTo(2)">← Back</button>
+      <div class="btn-spacer"></div>
+      <button class="mod-nav-btn btn-next" onclick="goTo(4)">Next: Adaptability →</button>
+    </div>
+  `,
+
+  adaptability: `
+    <div class="value-badge" style="background:#eef4fa;color:var(--adaptability)">🌊 Core Value — Adaptability</div>
+    <div class="module-eyebrow" style="color:var(--adaptability)">Module 4 · Growth · Resiliency</div>
+    <h1 class="module-title">Lead Through <em>Change</em></h1>
+    <p class="module-desc">The teams that thrive aren't the ones where nothing ever goes wrong. They're the ones led by managers who help people grow through the hard moments instead of hiding from them.</p>
+    <div class="divider"></div>
+
+    <p class="section-header">The Growth Mindset for Managers</p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🌱</div>
+        <div class="card-title">Model Openness to Learning</div>
+        <div class="card-body">Say "I don't know" when you don't. Ask questions. Admit when something didn't work. Your team learns it's safe to grow by watching you do it.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">💪</div>
+        <div class="card-title">Build Resilience, Not Fragility</div>
+        <div class="card-body">Protect your team from stress but don't shield them from all challenge. Overcoming hard things together is how resilience gets built.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔄</div>
+        <div class="card-title">Normalize Iteration</div>
+        <div class="card-body">"We'll figure it out as we go" is sometimes the right answer. Encourage your team to test, learn, and adjust — not get it perfect on the first try.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧭</div>
+        <div class="card-title">Stay Steady When Things Shift</div>
+        <div class="card-body">When things change above you, your team looks to you for signals. Your calm — or panic — is contagious. Be the stable reference point.</div>
+      </div>
+    </div>
+
+    <p class="section-header">Coaching Conversations — The Core Skill</p>
+    <div class="principle-list">
+      <div class="principle-item">
+        <span class="principle-num">A</span>
+        <div class="principle-content">
+          <div class="pc-title">Ask before advising</div>
+          <div class="pc-body">"What do you think we should do?" builds problem-solving capability. Giving the answer every time builds dependency.</div>
+        </div>
+      </div>
+      <div class="principle-item">
+        <span class="principle-num">B</span>
+        <div class="principle-content">
+          <div class="pc-title">Connect failure to learning</div>
+          <div class="pc-body">After something doesn't go well: "What did we learn? What would we do differently?" — not "What went wrong and whose fault was it?"</div>
+        </div>
+      </div>
+      <div class="principle-item">
+        <span class="principle-num">C</span>
+        <div class="principle-content">
+          <div class="pc-title">Invest in their growth, not just the work</div>
+          <div class="pc-body">Ask your team members: "Where do you want to grow?" and then look for opportunities to stretch them in that direction, even if it's a little uncomfortable.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scenario-box">
+      <div class="scenario-label">📋 Scenario</div>
+      <div class="scenario-text">The company announces a process change your team didn't expect. Some people are frustrated. One person says, "Why do they keep changing things? Nothing ever makes sense."</div>
+      <div class="scenario-response">
+        <strong>Micromanager response:</strong> Shuts down the complaint, defends leadership, moves on quickly to avoid more grumbling.<br><br>
+        <strong>Empowering response:</strong> "I hear you — change without context is frustrating. Here's what I know about why this is happening... and here's what I don't know yet. Let me find out what I can. In the meantime, what would help you feel more settled about this?"
+      </div>
+    </div>
+
+    <div class="reflection-box">
+      <div class="reflection-label">🔍 Reflection</div>
+      <div class="reflection-q"><span class="rq-num">01</span>When things go sideways, do you tend to problem-solve for your team or with your team?</div>
+      <div class="reflection-q"><span class="rq-num">02</span>What's one area where you could give a team member more stretch responsibility?</div>
+    </div>
+    <div class="mod-nav">
+      <button class="mod-nav-btn btn-prev" onclick="goTo(3)">← Back</button>
+      <div class="btn-spacer"></div>
+      <button class="mod-nav-btn btn-next" onclick="goTo(5)">Next: Collaboration →</button>
+    </div>
+  `,
+
+  collaboration: `
+    <div class="value-badge" style="background:#f5eef8;color:var(--collaboration)">🌟 Core Value — Collaboration</div>
+    <div class="module-eyebrow" style="color:var(--collaboration)">Module 5 · Recognition · Appreciation · Celebration · Gratitude</div>
+    <h1 class="module-title">Collaboration Is <em>Culture</em></h1>
+    <p class="module-desc">You don't build a great team through control. You build it through how you recognize people, how you celebrate wins, and how you make people feel about the work they do.</p>
+    <div class="divider"></div>
+
+    <p class="section-header">Recognition — The Most Underused Management Tool</p>
+    <div class="stat-row">
+      <div class="stat-card"><span class="stat-num">82%</span><span class="stat-label">of employees feel their supervisor doesn't recognize them enough</span></div>
+      <div class="stat-card"><span class="stat-num">40%</span><span class="stat-label">of employees who feel strongly recognized report higher engagement levels</span></div>
+    </div>
+
+    <div class="principle-list">
+      <div class="principle-item">
+        <span class="principle-num">1</span>
+        <div class="principle-content">
+          <div class="pc-title">Recognition must be specific</div>
+          <div class="pc-body">"Great job!" is forgettable. "The way you handled that client call — keeping calm when they pushed back and still landing the point — that was excellent" is memorable and meaningful.</div>
+        </div>
+      </div>
+      <div class="principle-item">
+        <span class="principle-num">2</span>
+        <div class="principle-content">
+          <div class="pc-title">Recognize effort AND outcome</div>
+          <div class="pc-body">When someone goes all-in on something that doesn't land perfectly — acknowledge the effort. Ignoring the work because results weren't perfect kills motivation.</div>
+        </div>
+      </div>
+      <div class="principle-item">
+        <span class="principle-num">3</span>
+        <div class="principle-content">
+          <div class="pc-title">Public vs. Private — know your people</div>
+          <div class="pc-body">Some people love public shoutouts. Others find them uncomfortable. Learn what each team member actually appreciates and honor that.</div>
+        </div>
+      </div>
+      <div class="principle-item">
+        <span class="principle-num">4</span>
+        <div class="principle-content">
+          <div class="pc-title">Celebrate milestones — even small ones</div>
+          <div class="pc-body">Don't wait for the big win to celebrate. The first time someone leads a project, the day they hit a personal goal — these moments matter. Mark them.</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-header">Building a Collaborative Team Culture</p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🙏</div>
+        <div class="card-title">Practice Gratitude Visibly</div>
+        <div class="card-body">Start team meetings with appreciations. Send a "thank you" message that's personal and specific. Say it out loud when you mean it. Gratitude is contagious.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔗</div>
+        <div class="card-title">Encourage Peer-to-Peer Recognition</div>
+        <div class="card-body">Create space for your team to appreciate each other — not just for you to appreciate them. Great cultures have recognition flowing in all directions.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎉</div>
+        <div class="card-title">Celebrate Together</div>
+        <div class="card-body">Team wins are team moments. Don't just announce results — pause, acknowledge what it took, and let people feel the win before moving on to the next thing.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">👂</div>
+        <div class="card-title">Make Every Voice Count</div>
+        <div class="card-body">Draw out quieter team members. When someone's idea is dismissed, revisit it. Make sure it's safe for different communication styles to exist on your team.</div>
+      </div>
+    </div>
+
+    <div class="reflection-box">
+      <div class="reflection-label">🔍 Reflection</div>
+      <div class="reflection-q"><span class="rq-num">01</span>When did you last genuinely recognize someone on your team? Was it specific enough?</div>
+      <div class="reflection-q"><span class="rq-num">02</span>Does everyone on your team feel equally seen? Who might be going unrecognized?</div>
+      <div class="reflection-q"><span class="rq-num">03</span>What's one celebration ritual you could introduce to your team this month?</div>
+    </div>
+    <div class="mod-nav">
+      <button class="mod-nav-btn btn-prev" onclick="goTo(4)">← Back</button>
+      <div class="btn-spacer"></div>
+      <button class="mod-nav-btn btn-next" onclick="goTo(6)">Next: Manager Toolbox →</button>
+    </div>
+  `,
+
+  tools: `
+    <div class="module-eyebrow" style="color:var(--gold)">Module 6 · Practice</div>
+    <h1 class="module-title">The Manager <em>Toolbox</em></h1>
+    <p class="module-desc">Empowerment isn't just a mindset — it requires practical habits and systems. These are the tools that translate values into daily management behavior.</p>
+    <div class="divider"></div>
+
+    <p class="section-header">🗓️ The Weekly 1-on-1</p>
+    <div class="card" style="margin-bottom:1.25rem;">
+      <div class="card-title">Your most important meeting as a manager</div>
+      <div class="card-body" style="margin-top:0.5rem">A weekly or biweekly 1-on-1 with each direct report is how trust gets built, problems get surfaced early, and people feel seen. This meeting belongs to THEM — not to you.</div>
+    </div>
+    <div class="checklist-box">
+      <div class="checklist-title">Effective 1-on-1 Starter Questions:</div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-label">"What's going well? What are you proud of this week?"</div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-label">"What's been hard or frustrating? What's blocking you?"</div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-label">"What do you need from me that you're not getting?"</div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-label">"How are you feeling about your workload right now?"</div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-label">"Is there anything you want to get better at?"</div></div>
+    </div>
+
+    <p class="section-header">🎯 Delegating with Clarity — The 3-Part Frame</p>
+    <div class="principle-list">
+      <div class="principle-item">
+        <span class="principle-num">W</span>
+        <div class="principle-content">
+          <div class="pc-title">What success looks like</div>
+          <div class="pc-body">Define the outcome before assigning the work. "I need you to draft a client-facing summary of our Q2 results — one page, clear and confident, ready for Tuesday."</div>
+        </div>
+      </div>
+      <div class="principle-item">
+        <span class="principle-num">A</span>
+        <div class="principle-content">
+          <div class="pc-title">Authority level</div>
+          <div class="pc-body">Be explicit about decision-making authority. "You have full authority here — don't need to check with me." OR "Run the final version by me before it goes out."</div>
+        </div>
+      </div>
+      <div class="principle-item">
+        <span class="principle-num">S</span>
+        <div class="principle-content">
+          <div class="pc-title">Support available</div>
+          <div class="pc-body">"Here are the resources you have. Here's who can help. Here's when to flag me if something goes sideways."</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-header">💬 Feedback That Empowers</p>
+    <div class="contrast-box">
+      <div class="contrast-col bad">
+        <div class="contrast-label">❌ Feedback That Deflates</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>"This isn't quite right. Let me just fix it."</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>"You need to be more professional."</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Vague, personal, or delayed</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Always framed as criticism</div>
+      </div>
+      <div class="contrast-col good">
+        <div class="contrast-label">✅ Feedback That Grows</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>"Here's what worked, and here's one thing to tighten."</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Specific behavior + specific impact</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Given quickly, privately, and with care</div>
+        <div class="contrast-item"><span class="ci-icon">•</span>Balanced with what's genuinely going well</div>
+      </div>
+    </div>
+
+    <p class="section-header">🚦 The STOP / START / CONTINUE Framework</p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🛑</div>
+        <div class="card-title">STOP</div>
+        <div class="card-body">What management behaviors am I doing right now that are getting in the team's way? What do I need to stop?</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🟢</div>
+        <div class="card-title">START</div>
+        <div class="card-body">What behaviors am I not doing yet that would help my team grow, perform better, or feel more supported?</div>
+      </div>
+      <div class="card" style="grid-column:1/-1">
+        <div class="card-icon">✅</div>
+        <div class="card-title">CONTINUE</div>
+        <div class="card-body">What's already working? What are my team members responding well to that I should protect and keep doing consistently?</div>
+      </div>
+    </div>
+
+    <div class="reflection-box">
+      <div class="reflection-label">🔍 Your Action Plan</div>
+      <div class="reflection-q"><span class="rq-num">01</span>Which of these tools will you commit to implementing this week?</div>
+      <div class="reflection-q"><span class="rq-num">02</span>Who on your team would benefit most from a focused 1-on-1 right now?</div>
+      <div class="reflection-q"><span class="rq-num">03</span>Write down one STOP, one START, and one CONTINUE for yourself as a manager.</div>
+    </div>
+    <div class="mod-nav">
+      <button class="mod-nav-btn btn-prev" onclick="goTo(5)">← Back</button>
+      <div class="btn-spacer"></div>
+      <button class="mod-nav-btn btn-next gold" onclick="goTo(7)">Complete Training →</button>
+    </div>
+  `,
+
+  complete: `
+    <div class="complete-banner">
+      <div class="complete-icon">🏅</div>
+      <h2>Training <em>Complete.</em></h2>
+      <p>You've worked through the foundations of empowerment-based leadership, grounded in our four core values. Now it's time to make a commitment — not to your company, but to your team.</p>
+      <div class="pledge-items">
+        <div class="pledge-item"><span class="pi-icon">🤝</span>I will build trust through transparency, respect, and integrity in every interaction</div>
+        <div class="pledge-item"><span class="pi-icon">🎯</span>I will hold my team to outcomes, not activities — and remove blockers that get in their way</div>
+        <div class="pledge-item"><span class="pi-icon">🌊</span>I will model a growth mindset and create space for my team to learn through challenges</div>
+        <div class="pledge-item"><span class="pi-icon">🌟</span>I will recognize and celebrate my team consistently, specifically, and genuinely</div>
+      </div>
+    </div>
+
+    <p class="section-header">Your 30-Day Manager Challenge</p>
+    <div class="checklist-box">
+      <div class="checklist-title">Complete these within your first 30 days:</div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-label">Schedule weekly 1-on-1s with every direct report</div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-label">Ask each person: "What do you need from me that you're not getting?"</div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-label">Delegate one project completely — with clear outcomes, authority, and support</div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-label">Give specific, behavior-based positive feedback to every team member</div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-label">Create or introduce one team celebration ritual</div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-label">Have one difficult conversation you've been avoiding</div></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><div class="check-label">Do your own STOP / START / CONTINUE — and share it with your team</div></div>
+    </div>
+
+    <div class="pull-quote">
+      <p>"The measure of a great manager isn't what they do — it's what their team is able to do because of them."</p>
+      <cite>— Lead to Empower, Manager Development Program</cite>
+    </div>
+
+    <div class="reflection-box">
+      <div class="reflection-label">🔍 Final Reflection</div>
+      <div class="reflection-q"><span class="rq-num">01</span>What was your biggest insight from this training?</div>
+      <div class="reflection-q"><span class="rq-num">02</span>What's the one thing you're going to change about how you manage, starting now?</div>
+      <div class="reflection-q"><span class="rq-num">03</span>What do you want your team to say about you a year from now?</div>
+    </div>
+    <div class="mod-nav">
+      <button class="mod-nav-btn btn-prev" onclick="goTo(6)">← Back</button>
+      <div class="btn-spacer"></div>
+      <button class="mod-nav-btn btn-next gold" onclick="restart()">↩ Restart Training</button>
+    </div>
+  `
+};
+
+function buildSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  let lastGroup = '';
+  modules.forEach((m, i) => {
+    if (m.group !== lastGroup) {
+      sidebar.innerHTML += `<div class="sidebar-section-label">${m.group}</div>`;
+      lastGroup = m.group;
+    }
+    sidebar.innerHTML += `
+      <div class="sidebar-item ${i === 0 ? 'active' : ''}" id="si-${i}" onclick="goTo(${i})">
+        <div class="si-icon">${m.icon}</div>
+        <div class="si-text">${m.label}</div>
+        <div class="si-check">✓</div>
+      </div>`;
+  });
+}
+
+function buildContent() {
+  const area = document.getElementById('contentArea');
+  modules.forEach(m => {
+    area.innerHTML += `<div class="module" id="mod-${m.id}">${moduleContent[m.id]}</div>`;
+  });
+}
+
+function buildNavDots() {
+  const dots = document.getElementById('navDots');
+  modules.forEach((_, i) => {
+    dots.innerHTML += `<div class="nav-dot ${i === 0 ? 'active' : ''}" id="nd-${i}" onclick="goTo(${i})"></div>`;
+  });
+}
+
+function goTo(idx) {
+  // Mark current as done
+  done.add(currentIdx);
+  document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
+  document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-dot').forEach(d => { d.classList.remove('active'); });
+  
+  document.getElementById(`mod-${modules[idx].id}`).classList.add('active');
+  document.getElementById(`si-${idx}`).classList.add('active');
+  document.getElementById(`nd-${idx}`).classList.add('active');
+
+  // Update done states
+  done.forEach(d => {
+    document.getElementById(`si-${d}`)?.classList.add('done');
+    document.getElementById(`nd-${d}`)?.classList.add('done');
+  });
+
+  currentIdx = idx;
+  document.querySelector('.content').scrollTop = 0;
+  window.scrollTo(0, 0);
+}
+
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+}
+
+function startTraining() {
+  document.getElementById('splash').classList.add('hidden');
+  setTimeout(() => {
+    document.getElementById('app').classList.add('visible');
+  }, 400);
+}
+
+function restart() {
+  done.clear();
+  goTo(0);
+}
+
+buildSidebar();
+buildContent();
+buildNavDots();
+document.getElementById('mod-welcome').classList.add('active');
+</script>
+</body>
+</html>
