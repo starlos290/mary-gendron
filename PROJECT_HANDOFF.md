@@ -1,8 +1,8 @@
-# HR Fieldwork by Mary Gendron
+# HR Fieldwork
 
 This file is the shared project notebook for the California employer review kits. Read the latest copy on GitHub before starting a task. Agents with write access to the project can edit the same file. A downloaded copy is a snapshot.
 
-**Live site** [Mary Gendron](https://mary-gendron.vercel.app)  
+**Live site** [HR Fieldwork](https://mary-gendron.vercel.app)  
 **Canonical notebook** [PROJECT_HANDOFF.md on main](https://github.com/starlos290/mary-gendron/blob/main/PROJECT_HANDOFF.md)  
 **Project** [Mary Gendron on Vercel](https://vercel.com/meaphase-projects/mary-gendron)
 
@@ -31,11 +31,11 @@ The homepage is `index.html`. The four landing pages are static HTML in `hr-kits
 
 ## Decisions
 
-1. Use HR Fieldwork by Mary Gendron as the working storefront identity. The first edition used the COD funnel and BFCM product layouts. The current storefront leads with the product, introduces Mary, shows the supplied fictional Fresno review, and collects launch list signups.
+1. HR Fieldwork is the public brand. Credit HR consultant Mary Gendron as the creator in the About section. The print studio scene is generated editorial imagery and does not depict Mary or a customer. The earlier editions below are retained as release history.
 2. The storefront is an offer preview. The proposed prices are $197 for payroll, $247 for handbook, $297 for California and $497 for the bundle. All three individually total $741. The proposed bundle difference is $244.
 3. Make examples inspectable. Label illustrative records and walkthroughs as fictional. Replace them with actual skill runs on fictional records once verified. Do not claim that the illustrations are generated reports.
 4. The seller provides educational HR tools. Keep legal determinations with qualified counsel. Avoid promises about compliance, penalty reductions, lawsuit outcomes, time savings or client results.
-5. Keep digital kit checkout closed until the downloadable products, license, approved terms and fulfillment are ready. The launch list accepts email addresses only. The storefront has no payment collection or employee document upload.
+5. Keep digital kit checkout closed until the downloadable products, license, approved terms and fulfillment are ready. The launch list collects email addresses, selected kit and approved campaign source tags. The storefront has no payment collection or employee document upload.
 
 ## Active work
 
@@ -43,7 +43,7 @@ No open claims at the time of the initial handoff. Append the owner, task and ex
 
 ## Open work
 
-1. **Product owner.** Confirm the offer, public brand, kit names, launch prices and contents of each zip. Decide on the proposed 14 day refund, 30 day upgrade credit, annual California edition and team license.
+1. **Product owner.** Confirm launch prices, final kit names and the contents of each paid ZIP. Decide on the proposed 14 day refund, 30 day upgrade credit, annual California edition and team license.
 2. **HR reviewer.** Supply the dated California coverage list, update owner and employer scope. Validate actual runs against fictional inputs in Claude and ChatGPT. Provide approved input and output pairs for the proof section and recorded demo.
 3. **Domain owner.** Supply the chosen domain. Attach it to the existing Mary Gendron project, verify DNS and HTTPS, and test the homepage, the four marketing routes and the original training route on the chosen host.
 4. **Commerce owner.** Once the offer is approved, connect each product to the correct checkout and private zip. Validate a purchase through delivery, receipt, support and the approved refund process.
@@ -72,6 +72,16 @@ The signup form posts to `/api/launch-list`. The Node function uses a private Ve
 The five pages now use a compact masthead, a mobile menu, DM Sans headings and blue signup buttons. The homepage shows the Fresno pay shortfall as a worksheet excerpt. The public sample files are `hr-kits/assets/samples/fresno-payroll-review.pdf` and `hr-kits/assets/samples/fresno-payroll-review.xlsx`. Both cover three of the seven findings supplied for the fictional 15 person store. The workbook includes editable notes and follow up status. These samples are free to download without signing up. They do not contain the paid review skills.
 
 The payroll, handbook and California pages each link to their own findings section. The bundle compares all three prices and links to the individual kits. Keep [PHOTO], [BIO], and [CREDENTIALS] visible until the owner supplies them.
+
+### 2026 11 19 | HR Fieldwork brand and traffic landing pages
+
+HR Fieldwork is the primary brand on all five pages. Mary appears as the kit creator. Her portrait, bio and credentials placeholders are retired from public pages. The domain name is the existing host and can be changed when the owner supplies a brand domain.
+
+The main wordmark, reversed lockup, standalone mark, favicons and downloadable logo kit live in `hr-kits/assets/brand/`. The visual identity combines a field furrow F mark, Instrument Serif titles, DM Sans body, evergreen, warm paper, and saffron buttons. Original generated visuals show an illustrative print shop scene, the files on a worktable, and four custom linocut illustrations representing each digital kit. The media are in `hr-kits/assets/images/`. Share images are in `hr-kits/assets/social/`. Inspiration included [Patagonia Workwear](https://www.patagonia.com/workwear/) for working environments and [Field Notes](https://fieldnotesbrand.com/) for a visually distinguishable product catalog.
+
+The homepage and four kit pages accept launch list signups in place. Private records include the email, time, signup purpose, signup page, selected kit, landing page and recognized campaign tags. The first landing page and campaign are carried within the tab on internal clicks. A fresh tagged entry replaces previous tags. Successful enhanced submissions emit a local signup event without personal data. No Meta or Google advertising tags are installed. Ads have not been launched. A repeated signup refreshes its existing private record. The form itself does not send the launch email.
+
+The current conversion goal is joining the launch list. Link each campaign directly to its relevant kit. All five pages have a canonical, a social preview and an entry in sitemap.xml. On a domain change, update those absolute URLs and robots.txt. Checkout and paid digital delivery require the approved product files, terms and payment setup. Keep those files in private storage.
 
 ### Entry format
 
