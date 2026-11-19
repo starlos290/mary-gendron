@@ -24,8 +24,8 @@ html { scroll-padding-top: 18px; }
 body { margin: 0; background: var(--white); color: var(--ink); font: 400 18px/1.58 var(--sans); -webkit-font-smoothing: antialiased; }
 h1, h2, h3, h4, p, ul, ol, dl, dd, figure { margin: 0; }
 h1, h2, h3, h4 { font-family: var(--heading); font-weight: 620; line-height: 1.09; }
-h1 { font-size: clamp(2.7rem, 5.35vw, 4.9rem); letter-spacing: -.064em; }
-h2 { font-size: clamp(2rem, 3.3vw, 3.2rem); letter-spacing: -.05em; }
+h1 { font-size: clamp(2.7rem, 5.35vw, 4.9rem); letter-spacing: -.026em; word-spacing: .028em; }
+h2 { font-size: clamp(2rem, 3.3vw, 3.2rem); letter-spacing: -.028em; }
 h3 { font-size: 1.5rem; letter-spacing: -.035em; }
 button, input { font: inherit; }
 button, summary { cursor: pointer; }

@@ -9,7 +9,7 @@
   color: inherit;
   font-family: var(--heading, var(--sans));
   font-weight: 620;
-  letter-spacing: -.047em;
+  letter-spacing: -.028em;
   text-wrap: balance;
 }
 .kit-page .kp-crumb {
