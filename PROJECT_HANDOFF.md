@@ -31,7 +31,7 @@ The homepage is `index.html`. The four landing pages are static HTML in `hr-kits
 
 ## Decisions
 
-1. Use HR Fieldwork by Mary Gendron as the working storefront identity. The design uses the COD funnel sequence, BFCM template 22 for the homepage, template 18 for individual kits, and template 20 for the bundle.
+1. Use HR Fieldwork by Mary Gendron as the working storefront identity. The first edition used the COD funnel and BFCM product layouts. The current storefront opens on an inspectable case file. Visitors can try the review desk before comparing the three skills and bundle.
 2. The storefront is an offer preview. The proposed prices are $197 for payroll, $247 for handbook, $297 for California and $497 for the bundle. All three individually total $741. The proposed bundle difference is $244.
 3. Make examples inspectable. Label illustrative records and walkthroughs as fictional. Replace them with actual skill runs on fictional records once verified. Do not claim that the illustrations are generated reports.
 4. The seller provides educational HR tools. Keep legal determinations with qualified counsel. Avoid promises about compliance, penalty reductions, lawsuit outcomes, time savings or client results.
@@ -54,6 +54,12 @@ No open claims at the time of the initial handoff. Append the owner, task and ex
 ### 2026 11 19 | Web build | Initial storefront
 
 Added the homepage, three product pages, the bundle detail page, mobile navigation, accessible sample tabs, and FAQs. The original manager training lives on its existing route. The new public pages identify planned prices and fictional examples. Next owner is the product owner for offer confirmation and demo inputs.
+
+### 2026 11 19 | Design | Review desk redesign
+
+Replaced the illustrated book storefront with a documentary payroll image, an accessible magnifying lens, and three interactive fictional case files. Each file discloses a specific review question. The kit and bundle pages use individual annotated records and step by step walkthroughs. Shared visual assets live in `hr-kits/assets`.
+
+Design references are MotionSites’ [Interactive Discovery](https://motionsites.ai/?prompt=interactive-discovery) for the lens and [Lumenvox Atelier](https://www.motionsites.ai/lesson/build-animated-website-with-ai) for the masked headline entrance. The animated selection indicator and arrow key behavior adapt [Animated Tabs by educalvolpz](https://21st.dev/@educalvolpz/components/animated-tabs) to plain JavaScript. The desk supports keyboard navigation, touch and reduced motion.
 
 ### Entry format
 

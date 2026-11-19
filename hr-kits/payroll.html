@@ -3,59 +3,65 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#153f32">
+  <meta name="theme-color" content="#f7f6f2">
   <title>Payroll Review Kit | HR Fieldwork</title>
-  <meta name="description" content="Trace a question about a pay run back to the records. Give your payroll provider a specific entry to check.">
-  <link rel="icon" href="/hr-kits/assets/fieldwork.svg" type="image/svg+xml">
+  <meta name="description" content="Put a pay register beside the time records that fed it. Break a payroll question down to one employee, one period and the entry that needs explaining.">
+  <link rel="icon" type="image/svg+xml" href="/hr-kits/assets/fieldwork.svg">
   <link rel="stylesheet" href="/hr-kits/assets/site.css">
   <link rel="stylesheet" href="/hr-kits/assets/detail.css">
   <script defer src="/hr-kits/assets/site.js"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="sitehead"><div class="wrap headrow">
- <a class="brand" href="/" aria-label="HR Fieldwork by Mary Gendron, home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span><span class="wordmark">HR Fieldwork<small>By Mary Gendron</small></span></a>
- <nav class="mainnav" id="mainnav" aria-label="Main navigation"><a href="/#library">The kits</a><a href="/#method">How it works</a><a href="/#faq">FAQ</a></nav>
- <a class="navbundle" href="/hr-kits/bundle">View the bundle <span aria-hidden="true">↗</span></a>
- <button type="button" class="navtoggle" aria-label="Open navigation" aria-expanded="false" aria-controls="mainnav"><span></span><span></span></button>
-</div></header>
+<header class="mast"><div class="wrap mastrow">
+<a class="identity" href="/" aria-label="HR Fieldwork by Mary Gendron, home"><span class="regmark" aria-hidden="true"><i></i></span><span>HR Fieldwork<span class="worddot">.</span><small>Mary Gendron</small></span></a>
+<nav class="mastnav" id="mastnav" aria-label="Main navigation"><a href="/#desk">Review desk</a><a href="/#library">The kits</a><a href="/#faq">FAQ</a><a class="mobile-bundle" href="/hr-kits/bundle">Bundle</a></nav>
+<a class="navcta" href="/hr-kits/bundle">View bundle <span class="arrow ne" aria-hidden="true"></span></a><button class="menutoggle" type="button" aria-controls="mastnav" aria-expanded="false" aria-label="Open menu"><i></i><i></i></button></div></header>
 
-<!-- BFCM source: 18 PDP Ingredient Anatomy, adapted for the HR Fieldwork collection. -->
-<main class="detail-main" id="main">
+<main class="product" id="main">
   <div class="wrap">
-    <nav class="detail-path" aria-label="Breadcrumb"><a href="/#library">Kit library</a><span aria-hidden="true">/</span><span aria-current="page">Payroll</span></nav>
-    <section class="detail-hero" data-section="buy-box" aria-labelledby="kit-title">
-      <div class="detail-intro">
-        <p class="kicker">Digital kit preview</p>
-        <h1 id="kit-title">Payroll Review Kit</h1>
-        <p class="detail-lede">Trace a question about a pay run back to the records. Give your payroll provider a specific entry to check.</p>
-        <div class="detail-price"><strong>$197</strong><span class="detail-meta">Planned price</span></div>
-        <div class="detail-actions"><a class="button" href="#example">See the example</a><a class="detail-subtle" href="/hr-kits/bundle">See the bundle</a></div>
-        <p class="detail-note">Designed for Claude and ChatGPT. Purchases are not open yet.</p>
+    <nav class="file-nav" aria-label="Breadcrumb"><a href="/#library">Kit library</a><span aria-hidden="true">/</span>Payroll</nav>
+    <section class="file-hero" aria-labelledby="kit-title">
+      <div class="file-intro">
+        <p class="file-meta">Downloadable HR skill</p>
+        <h1 id="kit-title">Payroll review.</h1>
+        <p class="file-lede">Put a pay register beside the time records that fed it. Break a payroll question down to one employee, one period and the entry that needs explaining.</p>
+        <p class="file-purchase"><strong>$197</strong><span class="price-label">Proposed price · Preview only</span></p>
+        <a class="button" href="#example">Explore the review <span class="arrow down" aria-hidden="true"></span></a>
+        <p class="format-note">For Claude or ChatGPT</p>
       </div>
-      <div class="detail-art" data-art="payroll" aria-hidden="true">
-        <div class="specimen"><span class="detail-art-meta">Mary Gendron / HR Fieldwork</span>
-        <span class="spec-title">Payroll review</span><ul class="spec-lines"><li>Pay register</li><li>Time records</li><li>Questions to verify</li></ul></div>
-      </div>
+      <figure class="docket docket--payroll" aria-labelledby="sample-title" aria-describedby="sample-caption">
+        <div class="receipt">
+          <div class="docket-head"><span>Pay period review</span><span>PR / 04</span></div>
+          <h2 class="receipt-title" id="sample-title">Time record comparison</h2>
+          <p class="receipt-meta"><span class="redact" aria-hidden="true"></span>Employee P04 · Week ending October 16</p>
+          <table class="spec-table" aria-labelledby="sample-title"><thead><tr><th scope="col">Record</th><th scope="col">Period</th><th scope="col">Hours</th></tr></thead><tbody><tr><td>Timecard</td><td>Oct 12 to 16</td><td>32.0</td></tr><tr><td>Pay register</td><td>Oct 12 to 16</td><td>30.0</td></tr><tr><td>Difference</td><td>Same period</td><td><span class="spec-mark">2.0</span></td></tr></tbody></table>
+          <div class="margin-note"><span class="margin-title">Reviewer question</span><span>Which entries made it into this run?</span></div>
+        </div>
+        <figcaption id="sample-caption">Fictional records for illustration.</figcaption>
+      </figure>
     </section>
   </div>
-  <section class="detail-section" data-section="anatomy">
-    <div class="wrap">
-      <div class="detail-section-heading"><div><p class="kicker">Kit contents</p><h2 class="detail-title">Inside the payroll review</h2></div><p>Start with one pay period. Keep a copy of the records your payroll provider used so you can compare the same dates.</p></div>
-      <div class="detail-parts"><article class="detail-part"><h3>What you bring</h3><p>A payroll register and matching time records. Use consistent employee codes wherever a name is unnecessary.</p></article><article class="detail-part"><h3>What you review</h3><p>Hours, pay entries and differences between the two records. Missing information becomes a question for the person who owns the record.</p></article><article class="detail-part"><h3>What you take away</h3><p>A list of entries to verify, the records behind each question, and a next step for your payroll provider.</p></article></div>
+  <section class="review-band" id="example" aria-labelledby="walkthrough">
+    <div class="wrap review-layout">
+      <div>
+        <p class="file-meta">Sample walkthrough</p>
+        <h2 class="section-title" id="walkthrough">Where did the two hours go?</h2>
+        <p class="review-intro">An owner notices that two records for the same person show different totals. Follow the entries from source to payroll.</p>
+      </div>
+      <div class="steps"><details open><summary><b aria-hidden="true">01</b>Match the records</summary><p>Check that employee P04 and the pay period match on both records. Compare the original entries with the payroll export.</p></details>
+<details><summary><b aria-hidden="true">02</b>Check the adjustment history</summary><p>The two hour difference needs an explanation. Check for a correction, an adjustment or a different cutoff before deciding what happened.</p></details>
+<details><summary><b aria-hidden="true">03</b>Ask payroll for the missing detail</summary><p>Ask the provider which entries fed this run and whether any hours moved to another pay period. Save their answer alongside the two records.</p></details></div>
     </div>
   </section>
-  <section id="example" class="detail-section detail-example-wrap" data-section="routine" aria-labelledby="example-title">
-    <div class="wrap detail-example">
-      <div class="detail-example-head"><p class="kicker">Fictional example</p><h2 id="example-title">Two records, two hour totals.</h2>
-      <p>A fictional employee appears in both records for the same week. The entries give the owner a place to start.</p><p class="detail-note">Illustration of the review process. Actual skill output can vary.</p></div>
-      <div class="detail-sheet"><div class="detail-sheet-header"><h3>Pay period review notes</h3></div><details open><summary>Read the two entries</summary><p>The time record for employee P04 shows 32 hours for the week. The payroll register shows 30 hours for the same employee and dates.</p></details><details><summary>Identify the missing detail</summary><p>The difference is two hours. The records supplied do not show whether a correction, an adjustment, or a different payroll cutoff explains it.</p></details><details><summary>Take the question to payroll</summary><p>“Can you show me which time entries went into this pay run for P04 and whether any hours moved to another period?”</p></details></div>
+  <section class="use-band" aria-labelledby="work-title">
+    <div class="wrap"><h2 class="section-title" id="work-title">What goes into a pay run review?</h2>
+      <div class="materials"><article><h3>Bring the source records</h3><p>Gather the payroll register and the matching time records. Use the same employee codes in both files.</p></article><article><h3>Work through the entries</h3><p>Review hours and pay entries for one period at a time. Keep incomplete records on the list of open questions.</p></article><article><h3>Hand off the question</h3><p>Give your provider the employee code, pay period, entry and exact difference to investigate.</p></article></div>
     </div>
   </section>
-  
-  <section class="detail-section" data-section="closing-cta"><div class="wrap detail-next"><h2>Explore the collection.</h2><div class="detail-related"><a class="detail-subtle" href="/hr-kits/bundle">Explore the bundle</a><a class="detail-subtle" href="/#library">Compare individual kits</a></div></div></section>
+  <div class="navigate-band"><div class="wrap"><p>Working across all three areas?</p><a class="file-link" href="/hr-kits/bundle">Explore the bundle <span class="arrow ne" aria-hidden="true"></span></a></div></div>
 </main>
-<footer class="sitefoot"><div class="wrap footrow"><a class="brand" href="/"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span><span class="wordmark">HR Fieldwork<small>By Mary Gendron</small></span></a><nav aria-label="Footer"><a href="/#library">The kits</a><a href="/hr-kits/bundle">The bundle</a><a href="/#faq">FAQ</a></nav></div><div class="wrap footnote">Educational tools for internal HR review. Bring legal questions to qualified employment counsel.</div></footer>
+<footer class="sitefooter"><div class="wrap"><div class="footrow"><a class="identity" href="/" aria-label="HR Fieldwork by Mary Gendron, home"><span class="regmark" aria-hidden="true"><i></i></span><span>HR Fieldwork<span class="worddot">.</span><small>Mary Gendron</small></span></a><nav aria-label="Footer navigation"><a href="/#desk">Review desk</a><a href="/#library">The kits</a><a href="/#faq">FAQ</a></nav></div><p>Educational tools for internal HR review. Take legal questions to qualified employment counsel.</p></div></footer>
 
 </body>
 </html>
