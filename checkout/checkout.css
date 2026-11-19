@@ -1,0 +1,29 @@
+.environment { margin-left:auto; color:var(--muted); font-size:.92rem; line-height:1.25; text-align:right; }
+.checkout-wrap { width:min(690px,calc(100% - 40px)); margin:clamp(32px,6vw,80px) auto; }
+.checkout-intro { margin-bottom:clamp(22px,3.2vw,38px); }
+.checkout-intro h1 { font-size:clamp(3.3rem,7vw,5.5rem); }
+.checkout-intro p,.checkout-return noscript p { margin-top:16px; max-width:56ch; color:var(--muted); }
+.checkout-panel { padding:clamp(16px,3vw,32px); background:var(--paper); border-top:3px solid var(--ink); }
+.checkout-panel fieldset { min-width:0; padding:0; margin:0; border:0; }
+.checkout-panel legend { margin-bottom:14px; padding:0; font-size:1.12rem; font-weight:650; }
+.kit-option { display:grid; grid-template-columns:auto 48px minmax(0,1fr) auto; align-items:center; gap:12px; padding:11px 0; border-top:1px solid var(--rule); cursor:pointer; font-weight:550; }
+.kit-option img { width:48px; height:48px; border-radius:50%; object-fit:cover; }
+.kit-option input { width:18px; height:18px; margin:0; accent-color:var(--ink); }
+.kit-option strong { font-variant-numeric:tabular-nums; font-weight:650; }
+.checkout-action { display:flex; flex-wrap:wrap; align-items:center; gap:10px 20px; border-top:1px solid var(--rule); margin-top:4px; padding-top:20px; }
+.checkout-action span,.checkout-footnote { color:var(--muted); font-size:.95rem; }
+.checkout-footnote { margin-top:26px; }
+@media (max-width:440px) {
+  .kit-option { grid-template-columns:18px minmax(0,1fr) auto; gap:9px; min-height:60px; }
+  .kit-option img { display:none; }
+  .environment { font-size:.8rem; }
+  .checkout-wrap { width:calc(100% - 32px); }
+}
+
+.kit-option:has(input:disabled) { cursor:default; }
+.kit-option:has(input:disabled) strong { color:var(--muted); }
+.checkout-action button:disabled { opacity:1; color:#4c574f; background:#e5e5d8; border-color:#808a7d; transform:none; cursor:default; }
+.availability { margin-top:13px; color:var(--muted); font-size:.95rem; }
+.sample-download { padding:28px 0 0; }
+.sample-download h2 { font-size:clamp(2rem,4vw,2.65rem); }
+.sample-download p { margin-block:10px; color:var(--muted); }
