@@ -1,5 +1,20 @@
 'use strict';
 
+const mobileMenu = document.querySelector('.mobile-nav');
+if (mobileMenu) {
+  document.addEventListener('click', (event) => {
+    if (mobileMenu.open && (!mobileMenu.contains(event.target) || event.target.closest('a'))) {
+      mobileMenu.open = false;
+    }
+  });
+  mobileMenu.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && mobileMenu.open) {
+      mobileMenu.open = false;
+      mobileMenu.querySelector('summary').focus();
+    }
+  });
+}
+
 const printSample = document.querySelector('.print-trigger');
 if (printSample && typeof window.print === 'function') {
   printSample.hidden = false;

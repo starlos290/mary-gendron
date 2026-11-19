@@ -67,6 +67,12 @@ The homepage and four kit pages share a static masthead and footer. On the homep
 
 The signup form posts to `/api/launch-list`. The Node function uses a private Vercel Blob store named `mary-gendron-launch-list` attached to the Mary Gendron project. Each normalized email maps to one private record. Production and preview entries use separate folders. Only the email address, last request time and launch notification purpose are recorded. Both standard form posts and enhanced submissions are supported. The owner can access the list from the project’s private storage dashboard. Never paste contacts or access tokens into this repository. Sending launch emails is a separate operation.
 
+### 2026 11 19 | Printable report and downloadable findings sheet
+
+The five pages now use a compact masthead, a mobile menu, DM Sans headings and blue signup buttons. The homepage shows the Fresno pay shortfall as a worksheet excerpt. The public sample files are `hr-kits/assets/samples/fresno-payroll-review.pdf` and `hr-kits/assets/samples/fresno-payroll-review.xlsx`. Both cover three of the seven findings supplied for the fictional 15 person store. The workbook includes editable notes and follow up status. These samples are free to download without signing up. They do not contain the paid review skills.
+
+The payroll, handbook and California pages each link to their own findings section. The bundle compares all three prices and links to the individual kits. Keep [PHOTO], [BIO], and [CREDENTIALS] visible until the owner supplies them.
+
 ### Entry format
 
 Date and agent / Task or question / Change or decision / Evidence or verification / Next owner.
