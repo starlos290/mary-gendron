@@ -87,6 +87,14 @@ The current conversion goal is joining the launch list. Link each campaign direc
 
 The homepage and Payroll Review page offer a single [free Fresno download](https://mary-gendron.vercel.app/hr-kits/assets/samples/hr-fieldwork-payroll-sample.zip). It contains the existing fictional PDF report and editable Excel worksheet. Both are also available individually at their existing URLs. The launch form returns a useful next step after the address is saved. Payroll, bundle and homepage signups get the sample ZIP. Handbook and California signups get the related fictional review. Native and enhanced forms use the same destinations.
 
+### 2026 11 19 | Checkout preview
+
+The draft branch adds `/checkout/preview` and `/checkout/complete`. The storefront continues to collect launch notices. The purchase button becomes available for configured kits in preview. The free Fresno sample is accessible independently. A hosted Stripe test session grants access to its matching private ZIP only when payment is verified. The order records the edition so a later edition change preserves access to the purchased archive.
+
+**Preview configuration.** Select the HR Fieldwork merchant’s Stripe sandbox. Set `STRIPE_SECRET_KEY` to its test key in the Vercel preview environment. Set `HR_FIELDWORK_EDITION` to a version such as `sample-v1`. Set `STRIPE_PRICE_PAYROLL`, `STRIPE_PRICE_HANDBOOK`, `STRIPE_PRICE_CALIFORNIA`, and `STRIPE_PRICE_BUNDLE` to the intended one time USD test prices. Only configure prices for kits with private ZIPs already staged. Use private Vercel Blob storage and upload each test archive as `commerce-preview/<edition>/<sku>.zip` with the content type `application/zip`. Allowed sku values are `payroll`, `handbook`, `california`, and `bundle`. Keep credentials in environment settings. Verify a complete test purchase and download in the designated merchant sandbox. Local tests can be run with `node --test tests/commerce.test.cjs`.
+
+**Moving to paid sales.** The current implementation deliberately accepts only test keys in preview. The product owner still needs to supply the release archives, merchant and approved buyer terms. A production implementation must also support reliable fulfillment after an interrupted return from Stripe, receipts, customer support and the agreed refund process. The draft does not send purchase email.
+
 ### Entry format
 
 Date and agent / Task or question / Change or decision / Evidence or verification / Next owner.

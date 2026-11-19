@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#fff9ed">
+  <title>Test checkout | HR Fieldwork</title>
+  <link rel="icon" type="image/svg+xml" href="/hr-kits/assets/brand/favicon.svg">
+  <link rel="stylesheet" href="/hr-kits/assets/site.css">
+  <link rel="stylesheet" href="/checkout/checkout.css">
+  <script defer src="/checkout/checkout.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to checkout</a>
+  <header class="masthead"><div class="wrap mast-inner">
+    <a class="brand-home" href="/" aria-label="HR Fieldwork home"><img src="/hr-kits/assets/brand/hr-fieldwork.svg" width="208" height="33" alt="HR Fieldwork"></a>
+    <span class="environment">Checkout preview</span>
+  </div></header>
+  <main id="main" class="checkout-wrap">
+    <section class="checkout-intro" aria-labelledby="title">
+      <h1 id="title">Choose a kit to test.</h1>
+      <p>This preview lets you try checkout and download a sample ZIP. Use Stripe test card details. No money changes hands.</p>
+    </section>
+    <form action="/api/checkout" method="post" id="kit-form" class="checkout-panel">
+      <fieldset id="test-purchase" disabled>
+        <legend>Review kits</legend>
+        <label class="kit-option">
+          <input type="radio" name="sku" value="payroll" required checked>
+          <img src="/hr-kits/assets/images/tile-payroll.webp" width="60" height="60" alt="">
+          <span>Payroll Review</span><strong>$197</strong>
+        </label>
+        <label class="kit-option">
+          <input type="radio" name="sku" value="handbook" required>
+          <img src="/hr-kits/assets/images/tile-handbook.webp" width="60" height="60" alt="">
+          <span>HR and Handbook Audit</span><strong>$247</strong>
+        </label>
+        <label class="kit-option">
+          <input type="radio" name="sku" value="california" required>
+          <img src="/hr-kits/assets/images/tile-california.webp" width="60" height="60" alt="">
+          <span>California Compliance</span><strong>$297</strong>
+        </label>
+        <label class="kit-option">
+          <input type="radio" name="sku" value="bundle" required>
+          <img src="/hr-kits/assets/images/tile-bundle.webp" width="60" height="60" alt="">
+          <span>Complete Bundle</span><strong>$497</strong>
+        </label>
+        <div class="checkout-action"><button class="button" type="submit">Open test checkout</button><span>Prices in USD</span></div>
+      </fieldset>
+      <p id="checkout-availability" class="availability" role="status">Checking test checkout availability…</p>
+      <noscript><style>#checkout-availability { display:none; }</style><p class="availability">Turn on JavaScript to check test checkout availability.</p></noscript>
+    </form>
+    <section class="sample-download" aria-labelledby="sample-title">
+      <h2 id="sample-title">Fresno payroll sample</h2>
+      <p>Get the fictional Fresno payroll report and its editable Excel worksheet. No order needed.</p>
+      <a class="textlink" href="/hr-kits/assets/samples/hr-fieldwork-payroll-sample.zip" download>Download a free sample ZIP</a>
+    </section>
+    <p class="checkout-footnote"><a href="/#kits">Back to the review kits</a></p>
+  </main>
+</body>
+</html>
