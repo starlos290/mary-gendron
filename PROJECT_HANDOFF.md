@@ -31,11 +31,11 @@ The homepage is `index.html`. The four landing pages are static HTML in `hr-kits
 
 ## Decisions
 
-1. Use HR Fieldwork by Mary Gendron as the working storefront identity. The first edition used the COD funnel and BFCM product layouts. The current storefront opens on an inspectable case file. Visitors can try the review desk before comparing the three skills and bundle.
+1. Use HR Fieldwork by Mary Gendron as the working storefront identity. The first edition used the COD funnel and BFCM product layouts. The current storefront leads with the product, introduces Mary, shows the supplied fictional Fresno review, and collects launch list signups.
 2. The storefront is an offer preview. The proposed prices are $197 for payroll, $247 for handbook, $297 for California and $497 for the bundle. All three individually total $741. The proposed bundle difference is $244.
 3. Make examples inspectable. Label illustrative records and walkthroughs as fictional. Replace them with actual skill runs on fictional records once verified. Do not claim that the illustrations are generated reports.
 4. The seller provides educational HR tools. Keep legal determinations with qualified counsel. Avoid promises about compliance, penalty reductions, lawsuit outcomes, time savings or client results.
-5. Keep digital kit checkout closed until the downloadable products, license, approved terms and fulfillment are ready. This build contains no lead form, analytics integration, payment collection or employee upload flow.
+5. Keep digital kit checkout closed until the downloadable products, license, approved terms and fulfillment are ready. The launch list accepts email addresses only. The storefront has no payment collection or employee document upload.
 
 ## Active work
 
@@ -60,6 +60,12 @@ Added the homepage, three product pages, the bundle detail page, mobile navigati
 Replaced the illustrated book storefront with a documentary payroll image, an accessible magnifying lens, and three interactive fictional case files. Each file discloses a specific review question. The kit and bundle pages use individual annotated records and step by step walkthroughs. Shared visual assets live in `hr-kits/assets`.
 
 Design references are MotionSites’ [Interactive Discovery](https://motionsites.ai/?prompt=interactive-discovery) for the lens and [Lumenvox Atelier](https://www.motionsites.ai/lesson/build-animated-website-with-ai) for the masked headline entrance. The animated selection indicator and arrow key behavior adapt [Animated Tabs by educalvolpz](https://21st.dev/@educalvolpz/components/animated-tabs) to plain JavaScript. The desk supports keyboard navigation, touch and reduced motion.
+
+### 2026 11 19 | Expert product pages and launch list
+
+The homepage and four kit pages share a static masthead and footer. On the homepage the anchor links are `#mary`, `#sample`, `#how`, `#kits`, `#privacy`, `#faq` and `#launch-list`. The older `#desk` and `#library` links lead to the corresponding sections. The printable Fresno excerpt contains only the supplied fictional figures. Mary’s portrait, bio and credentials use the literal placeholders [PHOTO], [BIO] and [CREDENTIALS]. The product owner should replace those with approved material.
+
+The signup form posts to `/api/launch-list`. The Node function uses a private Vercel Blob store named `mary-gendron-launch-list` attached to the Mary Gendron project. Each normalized email maps to one private record. Production and preview entries use separate folders. Only the email address, last request time and launch notification purpose are recorded. Both standard form posts and enhanced submissions are supported. The owner can access the list from the project’s private storage dashboard. Never paste contacts or access tokens into this repository. Sending launch emails is a separate operation.
 
 ### Entry format
 
