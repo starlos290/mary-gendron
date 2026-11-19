@@ -18,7 +18,7 @@
 .file-meta, .docket-head, .receipt-meta, .margin-title, .format-note, .line-label { font: 600 .68rem/1.45 var(--code); letter-spacing: .075em; text-transform: uppercase; }
 .file-meta { display: flex; align-items: center; gap: 9px; color: #514d44; }
 .file-meta::before { content: ""; width: .47rem; height: .47rem; background: #d94327; }
-.product .file-hero h1 { font-size: clamp(3.5rem, 5.95vw, 6.1rem); font-weight: 610; line-height: .965; letter-spacing: -.071em; padding-bottom: .09em; margin: 22px 0 18px; text-wrap: balance; }
+.product .file-hero h1 { font-size: clamp(3.5rem, 5.95vw, 6.1rem); font-weight: 610; line-height: .965; letter-spacing: -.048em; padding-bottom: .09em; margin: 22px 0 18px; text-wrap: balance; }
 .file-lede { max-width: 37ch; color: #4a463e; font: 460 clamp(1.02rem, 1.25vw, 1.19rem)/1.54 var(--type); }
 .product .file-purchase { display: flex; gap: 15px; align-items: baseline; margin: 25px 0 18px; }
 .file-purchase strong { font: 600 1.7rem/1.05 var(--type); letter-spacing: -.055em; }
@@ -56,7 +56,7 @@
 .review-band { padding: clamp(48px, 6.2vw, 94px) 0; background: #23221e; color: #f7f4eb; }
 .review-layout { display: grid; grid-template-columns: .82fr 1.18fr; align-items: start; gap: clamp(36px, 8vw, 122px); }
 .review-band .file-meta { color: #cdc8ba; }
-.product .section-title { font-size: clamp(2.45rem, 4.4vw, 4.4rem); line-height: 1.01; font-weight: 580; letter-spacing: -.065em; text-wrap: balance; margin: 17px 0 14px; }
+.product .section-title { font-size: clamp(2.45rem, 4.4vw, 4.4rem); line-height: 1.01; font-weight: 580; letter-spacing: -.043em; text-wrap: balance; margin: 17px 0 14px; }
 .review-intro { max-width: 35ch; color: #c9c6bb; line-height: 1.6; font-size: .98rem; }
 .steps { border-top: 1px solid #716f63; }
 .steps details { border-bottom: 1px solid #605e54; }
