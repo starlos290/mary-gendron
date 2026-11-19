@@ -88,6 +88,15 @@ for (const launchForm of document.querySelectorAll('.launch-form')) {
       }
       launchForm.reset();
       status.textContent = 'You’re on the launch list. We’ll email you when the kits are available.';
+      if (result.sample) {
+        const link = document.createElement('a');
+        link.href = result.sample.href;
+        link.textContent = result.sample.label;
+        link.className = 'textlink';
+        status.append(document.createElement('br'), link);
+      }
+      status.tabIndex = -1;
+      status.focus({ preventScroll: true });
     } catch {
       status.textContent = 'We could not confirm your signup. Please try again.';
       return;

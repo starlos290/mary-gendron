@@ -1,7 +1,7 @@
 const { createHash } = require('node:crypto');
 const { put } = require('@vercel/blob');
 
-const success = 'You are on the launch list. We will email you when the kits are available.';
+const success = 'We’ll email you when the kits are available.';
 const unavailable = 'We could not save your email. Please try again in a moment.';
 const invalid = 'Enter a valid email address and try again.';
 
@@ -12,6 +12,17 @@ const kitsByRoute = new Map([
   ['/hr-kits/california', 'california'],
   ['/hr-kits/bundle', 'bundle']
 ]);
+const payrollSample = {
+  href: '/hr-kits/assets/samples/hr-fieldwork-payroll-sample.zip',
+  label: 'Download the Fresno report and worksheet (ZIP)'
+};
+const samplesByKit = {
+  all: payrollSample,
+  payroll: payrollSample,
+  bundle: payrollSample,
+  handbook: { href: '/hr-kits/handbook#handbook-sample', label: 'Read the sample time off review' },
+  california: { href: '/hr-kits/california#california-sample', label: 'Read the sample supervisor training review' }
+};
 const campaignKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
 
 function cleanCampaign(tags) {
@@ -31,18 +42,22 @@ function reply(res, wantsHtml, status, message, signupRoute = '/') {
   res.setHeader('Cache-Control', 'no-store');
   res.setHeader('X-Robots-Tag', 'noindex');
   res.setHeader('X-Content-Type-Options', 'nosniff');
+  const sample = status === 200 ? samplesByKit[kitsByRoute.get(signupRoute)] : null;
   if (!wantsHtml) {
-    return res.status(status).json(status === 200 ? { ok: true } : { ok: false, error: message });
+    return res.status(status).json(sample ? { ok: true, sample } : { ok: false, error: message });
   }
-  // Only fixed application messages are rendered here.
-  const heading = status === 200 ? 'You are on the list.' : 'Your email was not added.';
-  const link = status === 200 ? 'Return to HR Fieldwork' : 'Return to the launch list';
+  // Messages, links and labels come from the fixed values above.
+  const heading = sample ? 'You’re on the launch list.' : 'Your email was not added.';
+  const action = sample
+    ? `<a class="button" href="${sample.href}">${sample.label}</a>`
+    : `<a class="button" href="${signupRoute}#launch-list">Return to the launch list</a>`;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   return res.status(status).send(`<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${heading} | HR Fieldwork</title><link rel="stylesheet" href="/hr-kits/assets/site.css">
-<style>main{max-width:40rem;margin:12vh auto;padding:0 1.5rem}p,a{font-size:1.125rem;line-height:1.6}a{text-decoration:underline}</style></head>
-<body><main><h1>${heading}</h1><p>${message}</p><a href="${signupRoute}#launch-list">${link}</a></main></body></html>`);
+<style>main{max-width:42rem;margin:9vh auto;padding:0 1.5rem}h1{margin:2.5rem 0 1rem}p{margin-bottom:1.5rem}</style></head>
+<body><main><a class="brand-home" href="/"><img src="/hr-kits/assets/brand/hr-fieldwork.svg" alt="HR Fieldwork home" width="208" height="33"></a>
+<h1>${heading}</h1><p>${message}</p>${action}</main></body></html>`);
 }
 
 module.exports = async function launchList(req, res) {

@@ -83,6 +83,10 @@ The homepage and four kit pages accept launch list signups in place. Private rec
 
 The current conversion goal is joining the launch list. Link each campaign directly to its relevant kit. All five pages have a canonical, a social preview and an entry in sitemap.xml. On a domain change, update those absolute URLs and robots.txt. Checkout and paid digital delivery require the approved product files, terms and payment setup. Keep those files in private storage.
 
+### 2026 11 19 | Free sample delivery
+
+The homepage and Payroll Review page offer a single [free Fresno download](https://mary-gendron.vercel.app/hr-kits/assets/samples/hr-fieldwork-payroll-sample.zip). It contains the existing fictional PDF report and editable Excel worksheet. Both are also available individually at their existing URLs. The launch form returns a useful next step after the address is saved. Payroll, bundle and homepage signups get the sample ZIP. Handbook and California signups get the related fictional review. Native and enhanced forms use the same destinations.
+
 ### Entry format
 
 Date and agent / Task or question / Change or decision / Evidence or verification / Next owner.
